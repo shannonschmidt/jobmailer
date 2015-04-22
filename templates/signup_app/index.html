@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <input name="email" placeholder="Email"/>
+    <select name="topics">
+        {% if topic_list %}
+            {% for topic in topic_list %}
+                <option>Option</option>
+            {% endfor %}
+        {% endif %}
+    </select>
+</body>
+</html>
