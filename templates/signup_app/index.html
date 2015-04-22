@@ -5,13 +5,17 @@
     <title></title>
 </head>
 <body>
-    <input name="email" placeholder="Email"/>
-    <select name="topics">
-        {% if topic_list %}
-            {% for topic in topic_list %}
-                <option>Option</option>
-            {% endfor %}
-        {% endif %}
-    </select>
+    <form name="signup_form" action="{% url 'signup_app:submit_form'%}" method ="POST">
+        {% csrf_token %}
+        <input name="email" placeholder="Email"/>
+        <select name="topic_selections">
+            {% if topic_list %}
+                {% for topic in topic_list %}
+                    <option name="topic_option" value="{{ topic.id }}">{{ topic.name }} </option>
+                {% endfor %}
+            {% endif %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>

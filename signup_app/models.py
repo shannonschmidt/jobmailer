@@ -1,7 +1,7 @@
 from django.db import models
 
 #db superuser -
-# email: admin@admin.com
+# username: shannon
 # pw: jobmailer
 
 class User(models.Model):
