@@ -8,7 +8,7 @@ class User(models.Model):
     email = models.CharField(max_length=100)# Users' emails
     signup_date = models.DateTimeField() #When added to database
     def __str__(self):
-        return self.id + " " + self.email
+        return str(self.id) + " " + self.email
 class Topic(models.Model):
     name = models.CharField(max_length=100)# Topic name
     def __str__(self):
