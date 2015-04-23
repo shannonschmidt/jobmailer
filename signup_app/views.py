@@ -29,23 +29,3 @@ def index(request):
         topic_list = Topic.objects.order_by('name')
         context = {'topic_list': topic_list} #Sets up the context for index.html
         return render(request,'signup_app/index.html',context)
-
-
-
-def submit_form(request):
-    print("entered submit method")
-    if request.method == "POST":
-        form = UserForm(request.POST or None)
-        if (form.is_valid()):
-            user_email = request.POST.get("email", "")
-            topic_id = request.POST.get("topic_selections", "")
-            user = User(email=user_email, signup_date=datetime.datetime.now())
-            user.save()
-            # user_topic = UserTopic(user_id=user, topic_id=topic_id, last_update_time=datetime.datetime.now())
-            # user_topic.save()
-            return HttpResponse("Congratulations!")
-        else:
-            form.errors
-            return HttpResponse("Errors")
-    else:
-        return HttpResponse("Not a Post")
