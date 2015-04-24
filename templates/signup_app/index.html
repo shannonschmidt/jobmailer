@@ -7,14 +7,15 @@
 <body>
     <form name="signup_form" method ="POST">
         {% csrf_token %}
-        <input name="email" placeholder="Email"/>
-        <select name="topic_selections">
-            {% if topic_list %}
-                {% for topic in topic_list %}
-                    <option name="topic_option" value="{{ topic.id }}">{{ topic.name }} </option>
-                {% endfor %}
-            {% endif %}
-        </select>
+{#        <input name="email" placeholder="Email"/>#}
+{#        <select name="topic_selections">#}
+{#            {% if topic_list %}#}
+{#                {% for topic in topic_list %}#}
+{#                    <option name="topic_option" value="{{ topic.id }}">{{ topic.name }} </option>#}
+{#                {% endfor %}#}
+{#            {% endif %}#}
+{#        </select>#}
+        {{ form.as_table }}
         <input type="submit" value="Submit">
     </form>
 </body>
