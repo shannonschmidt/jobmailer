@@ -3,20 +3,16 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link href="/static/signup_app/styles.css" rel="stylesheet">
 </head>
 <body>
-    <form name="signup_form" method ="POST">
-        {% csrf_token %}
-{#        <input name="email" placeholder="Email"/>#}
-{#        <select name="topic_selections">#}
-{#            {% if topic_list %}#}
-{#                {% for topic in topic_list %}#}
-{#                    <option name="topic_option" value="{{ topic.id }}">{{ topic.name }} </option>#}
-{#                {% endfor %}#}
-{#            {% endif %}#}
-{#        </select>#}
-        {{ form.as_table }}
-        <input type="submit" value="Submit">
-    </form>
+    <div class="form_container">
+        <h1>Jobmailer</h1>
+        <form name="signup_form" method ="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 </html>
