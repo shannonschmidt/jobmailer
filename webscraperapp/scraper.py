@@ -195,7 +195,13 @@ class scrapeMe():
                 job_date = job_date[-4:]+"-"+job_date[:2]+"-"+job_date[3:5]
                 job_source = "Chronicle of Philanthropy"
                 pk = random.randint(1,1000000000000000)
-                job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
+                second_full_url_req = ur.Request(job_link)
+                second_full_url_response = ur.urlopen(second_full_url_req)
+                second_soup = BeautifulSoup(second_full_url_response)
+                field_area = second_soup.find_all("div", class_="col-md-6 job--details")[3].get_text().strip()
+                job_field = field_area[6:]
+                job_field = job_field.replace("\n                                            ","")
+                job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link, "Field": job_field}
                 if job_date == self.date_to_search:
                     scrapeMe.days_jobs_list.append(job_dict)
         self.addtolist()
