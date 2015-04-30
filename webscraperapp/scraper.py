@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup #bs for parsing the page
 import requests
 from lxml import html
 import datetime
+import random
 
 class scrapeMe():
     today = datetime.date.today()
@@ -14,6 +15,7 @@ class scrapeMe():
         self.scrapenyn()
         self.scrapebridgespanblue()
         self.scrapebridgespanwhite()
+        self.scrapephil()
         
     def scrapenyn(self):
         job_dict = {}
@@ -62,7 +64,8 @@ class scrapeMe():
             job_day_of_month = job_date[:2]
             job_date = "2015-"+job_month_num+"-"+job_day_of_month
             job_source = "New York Non-Profit Careers"
-            job_dict = {"Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
+            pk = random.randint(1,1000000000000000)
+            job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
             if job_date == self.date_to_search:
                 scrapeMe.days_jobs_list.append(job_dict)
         self.addtolist()
@@ -111,7 +114,8 @@ class scrapeMe():
                 job_date_num = job_date_num
             job_date = job_date[-4:]+"-"+job_date_num+"-"+job_date[-7:-5]
             job_source = "Bridgespan Group"
-            job_dict = {"Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
+            pk = random.randint(1,1000000000000000)
+            job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
             if job_date == self.date_to_search:
                 scrapeMe.days_jobs_list.append(job_dict)
         self.addtolist()
@@ -160,13 +164,46 @@ class scrapeMe():
                 job_date_num = job_date_num
             job_date = job_date[-4:]+"-"+job_date_num+"-"+job_date[-7:-5]
             job_source = "Bridgespan Group"
-            job_dict = {"Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
+            pk = random.randint(1,1000000000000000)
+            job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
             if job_date == self.date_to_search:
                 scrapeMe.days_jobs_list.append(job_dict)
         self.addtolist()
-        
+    
+    def scrapephil(self):
+        job_dict = {}
+        url = "https://philanthropy.com/jobSearch?action=rem&search_siteId=7&contextId=224&searchQueryString="
+        full_url_req = ur.Request(url)
+        full_url_response = ur.urlopen(full_url_req)
+        soup = BeautifulSoup(full_url_response)
+        all_posts = soup.find_all("div", class_="result")
+        for each_post in all_posts:
+            try:
+                job_title = each_post.find("h4", class_="result-title").get_text().strip()
+                job_company = each_post.find("h5", class_="organization").get_text().strip()
+                job_details = each_post.find("dl", class_="col-md-5 details-left")
+                job_date = job_details.find_all("dd")[0].get_text().strip()
+                job_location = job_details.find_all("dd")[1].get_text().strip()
+                link_area = each_post.find("h4", class_="result-title")
+                job_link_slug = link_area.find("a").get('href')
+            except:
+                pass
+            else:
+                job_link_slug_str = str(job_link_slug)
+                job_link = "https://philanthropy.com" + job_link_slug_str
+                #change dates of posts into same format as datetime
+                job_date = job_date[-4:]+"-"+job_date[:2]+"-"+job_date[3:5]
+                job_source = "Chronicle of Philanthropy"
+                pk = random.randint(1,1000000000000000)
+                job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
+                if job_date == self.date_to_search:
+                    scrapeMe.days_jobs_list.append(job_dict)
+        self.addtolist()
+
     def addtolist(self):
         scrapeMe.days_jobs_list.append(self.days_jobs_list)
         return(scrapeMe.days_jobs_list)
 
 scrapeEm = scrapeMe()
+
+scrapeEm.days_jobs_list
