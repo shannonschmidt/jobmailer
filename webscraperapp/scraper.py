@@ -201,7 +201,32 @@ class scrapeMe():
                 field_area = second_soup.find_all("div", class_="col-md-6 job--details")[3].get_text().strip()
                 job_field = field_area[6:]
                 job_field = job_field.replace("\n                                            ","")
-                job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link, "Field": job_field}
+                job_field_split = job_field.split(",")
+                try:
+                    job_field_1 = newphrase[0].lower()
+                except:
+                    pass
+                try:
+                    job_field_2 = newphrase[1][1:].lower()
+                except:
+                    pass
+                try:
+                    job_field_3 = newphrase[2][1:].lower()
+                except:
+                    pass
+                try:
+                    job_field_4 = newphrase[3][1:].lower()
+                except:
+                    pass
+                try:
+                    job_field_5 = newphrase[4][1:].lower()
+                except:
+                    pass
+                try:
+                    job_field_6 = newphrase[5][1:].lower()
+                except:
+                    pass
+                job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link, "Field_1": job_field_1, "Field_2": job_field_2, "Field_3": job_field_3, "Field_4": job_field_4, "Field_5": job_field_5}
                 if job_date == self.date_to_search:
                     scrapeMe.days_jobs_list.append(job_dict)
         self.addtolist()
