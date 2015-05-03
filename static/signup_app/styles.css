@@ -58,6 +58,16 @@ body {
 
 h1 {
     text-align: center;
+    margin-bottom: 0;
+}
+
+h3 {
+    font-family: pt_sansregular;
+    margin-top: 0;
+    font-size: .85em;
+    text-align: center;
+    background: rgba(255,255,255,.5);
+    margin: auto -40px;
 }
 
 input[type="submit"] {
@@ -79,7 +89,7 @@ input[type="submit"]:hover {
 
 div.form_container {
   margin: 150px auto;
-  padding: 20px;
+  padding: 20px 40px;
   width: 500px;
   background: rgba(255,255,255,.4);
   border-radius: 6px;

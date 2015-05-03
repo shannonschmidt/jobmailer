@@ -36,7 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'signup_app'
+    'signup_app',
+    'webscraperapp'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,3 +111,10 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     # os.path.join(BASE_DIR, 'jobmailer/../templates')
 )
+
+#Gmail info
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'jobmailerplus'
+EMAIL_HOST_PASSWORD = 'NYUStern15'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
