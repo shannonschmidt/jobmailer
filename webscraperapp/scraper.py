@@ -9,6 +9,7 @@ class scrapeMe():
     today = datetime.date.today()
     today_as_string = str(today)
     days_jobs_list = []
+    job_fields = []
     
     def __init__(self, date_to_search=today_as_string):
         self.date_to_search = date_to_search
@@ -65,7 +66,7 @@ class scrapeMe():
             job_date = "2015-"+job_month_num+"-"+job_day_of_month
             job_source = "New York Non-Profit Careers"
             pk = random.randint(1,1000000000000000)
-            job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
+            job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link, "Field_1": "", "Field_2": "", "Field_3": "", "Field_4": "", "Field_5": "", "Field_6": ""}
             if job_date == self.date_to_search:
                 scrapeMe.days_jobs_list.append(job_dict)
         self.addtolist()
@@ -115,7 +116,7 @@ class scrapeMe():
             job_date = job_date[-4:]+"-"+job_date_num+"-"+job_date[-7:-5]
             job_source = "Bridgespan Group"
             pk = random.randint(1,1000000000000000)
-            job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
+            job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link, "Field_1": "", "Field_2": "", "Field_3": "", "Field_4": "", "Field_5": "", "Field_6": ""}
             if job_date == self.date_to_search:
                 scrapeMe.days_jobs_list.append(job_dict)
         self.addtolist()
@@ -165,7 +166,7 @@ class scrapeMe():
             job_date = job_date[-4:]+"-"+job_date_num+"-"+job_date[-7:-5]
             job_source = "Bridgespan Group"
             pk = random.randint(1,1000000000000000)
-            job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link}
+            job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link, "Field_1": "", "Field_2": "", "Field_3": "", "Field_4": "", "Field_5": "", "Field_6": ""}
             if job_date == self.date_to_search:
                 scrapeMe.days_jobs_list.append(job_dict)
         self.addtolist()
@@ -203,38 +204,47 @@ class scrapeMe():
                 job_field = job_field.replace("\n                                            ","")
                 job_field_split = job_field.split(",")
                 try:
-                    job_field_1 = newphrase[0].lower()
+                    job_field_1 = job_field_split[0].lower()
                 except:
-                    pass
+                    job_field_1 = ""
+                else:
+                    scrapeMe.job_fields.append(job_field_1)
                 try:
-                    job_field_2 = newphrase[1][1:].lower()
+                    job_field_2 = job_field_split[1][1:].lower()
                 except:
-                    pass
+                    job_field_2 = ""
+                else:
+                    scrapeMe.job_fields.append(job_field_2)
                 try:
-                    job_field_3 = newphrase[2][1:].lower()
+                    job_field_3 = job_field_split[2][1:].lower()
                 except:
-                    pass
+                    job_field_3 = ""
+                else:
+                    scrapeMe.job_fields.append(job_field_3)
                 try:
-                    job_field_4 = newphrase[3][1:].lower()
+                    job_field_4 = job_field_split[3][1:].lower()
                 except:
-                    pass
+                    job_field_4 = ""
+                else:
+                    scrapeMe.job_fields.append(job_field_4)
                 try:
-                    job_field_5 = newphrase[4][1:].lower()
+                    job_field_5 = job_field_split[4][1:].lower()
                 except:
-                    pass
+                    job_field_5 = ""
+                else:
+                    scrapeMe.job_fields.append(job_field_5)
                 try:
-                    job_field_6 = newphrase[5][1:].lower()
+                    job_field_6 = job_field_split[5][1:].lower()
                 except:
-                    pass
-                job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link, "Field_1": job_field_1, "Field_2": job_field_2, "Field_3": job_field_3, "Field_4": job_field_4, "Field_5": job_field_5}
+                    job_field_6 = ""
+                else:
+                    scrapeMe.job_fields.append(job_field_6)
+                job_dict = {"pk": pk, "Date": job_date, "Company": job_company, "Title": job_title, "Location": job_location, "Source": job_source, "Link": job_link, "Field_1": job_field_1, "Field_2": job_field_2, "Field_3": job_field_3, "Field_4": job_field_4, "Field_5": job_field_5, "Field_6": job_field_6}
                 if job_date == self.date_to_search:
                     scrapeMe.days_jobs_list.append(job_dict)
         self.addtolist()
 
     def addtolist(self):
         scrapeMe.days_jobs_list.append(self.days_jobs_list)
-        return(scrapeMe.days_jobs_list)
-
-scrapeEm = scrapeMe()
-
-scrapeEm.days_jobs_list
+        scrapeMe.job_fields_set = {x for x in self.job_fields}
+        return(scrapeMe.days_jobs_list,scrapeMe.job_fields_set)
