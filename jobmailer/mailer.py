@@ -80,7 +80,7 @@ class Mailer:
               <head></head>
               <body>
                 <div style="background: #ffffff;">
-                    <h1 style="text-align: center; background: rgba(104, 208, 60); color: #ffffff; padding: 10px;">Impact Careers Daily</h1>
+                    <h1 style="text-align: center; background: rgba(104, 208, 60, 1); color: #ffffff; padding: 10px;">Impact Careers Daily</h1>
                     <p>Check out today's new jobs for you!</p>
 
             """
