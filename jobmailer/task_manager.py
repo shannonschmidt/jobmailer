@@ -19,10 +19,10 @@ class TaskManager:
             scheduler.enter(0, 1, self.send_mail_task, ([scheduler]))
             scheduler.run()
 
-        # reschedule this function to run again in a minute
+        # reschedule this function to run again after the interval
         scheduler.enter(self.interval, 1, self.send_mail_task, ([scheduler]))
 
-        # do whatever actual work this function requires, e.g.:
+        # scrape and email!
         self.scraper.update_all_jobs()
         self.mailer.email_each_user()
 

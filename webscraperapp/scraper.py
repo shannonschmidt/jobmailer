@@ -140,12 +140,12 @@ class scrapeMe:
 
                     for item in job_field_split:
                         item = item.strip()
-                        db_topic, topic_created = Topic.objects.get_or_create(name=item)
-                        if topic_created:
-                            print("created phil " + job_company + " " + job_title + "; topic: " + item.lower())
-                        else:
-                            print("skipped adding duplicate topic " + item.lower())
-                        db_job.topics.add(db_topic)
+                        try:
+                            db_topic = Topic.objects.get(name=item)
+                            db_job.topics.add(db_topic)
+                            print("added " + item.lower() + " to " + job_company + " " + job_title)
+                        except:
+                            print("topic " + item.lower() + " is not in the database")
 
                 else:
                     print('phil skipping - already in DB')

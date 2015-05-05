@@ -10,15 +10,15 @@ def index(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
-            user_obj = form.save(commit=False)
+            user_obj = form.save(commit=False)#don't commit yet since we need to set the signup date
             user_obj.signup_date = datetime.datetime.now()
             user_obj.save()
             form.save_m2m()
 
-            return HttpResponse("Congratulations! mail sent.")
+            return render_to_response('signup_app/congrats.html', context_instance=RequestContext(request))
         else:
             print(form.errors)
-            return HttpResponse("Errors")
+            return render_to_response('signup_app/error.html', context_instance=RequestContext(request))
     else:
         form = UserForm()
         return render_to_response('signup_app/index.html', {'form':form },

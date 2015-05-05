@@ -114,7 +114,7 @@ TEMPLATE_DIRS = (
 
 #Gmail info
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'jobmailerplus'
-EMAIL_HOST_PASSWORD = 'NYUStern15'
+EMAIL_HOST_USER = 'ImpactCareersDaily'
+EMAIL_HOST_PASSWORD = 'NYUStern2015'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

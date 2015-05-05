@@ -14,5 +14,7 @@ class User(models.Model):
     topics = models.ManyToManyField(Topic)
     def __str__(self):
         return str(self.id) + " " + self.email
+
+    #used to display topics in the admin page
     def get_topics(self):
         return '\n'.join([t.name for t in self.topics.all()])

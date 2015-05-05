@@ -23,9 +23,6 @@ class SignupAppConfig(AppConfig):
         mailer = Mailer()
         tm = TaskManager(scraper, mailer)
 
-        #if we don't use a thread, this will render the signup page unresponsive
-        #tm.send_mail_task()
-
         #todo: fix bug where ready() may be called twice and spawns 2 threads and sends double emails
         t = Thread(target=tm.send_mail_task)
         t.start()

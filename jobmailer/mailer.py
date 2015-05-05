@@ -8,28 +8,34 @@ __author__ = 'shannon'
 
 class Mailer:
 
-    DEFAULT_FROM_ADDRESS = 'Jobmailer@jobmailer.com'
+    DEFAULT_FROM_ADDRESS = 'impactcareersdaily@gmail.com'
     DEFAULT_SUBJECT = 'New jobs for you!'
-    DEFAULT_MESSAGE = 'Here are some new jobs!'
 
     def sendJobMail(self, user):
         today = datetime.date.today()
+
+        #keep a normal message for non-html email clients
         message = "Check out today's new jobs for you!\n"
+        #ideally we want users to receive the html stylized email
         html_message = self.get_html_message_start()
 
+        #loop through all this users' topics and list the new jobs for that topic
         for topic in user.topics.all():
             message += "Topic: " + topic.name + "\n"
             html_message += """<h3>""" + topic.name + """</h3>"""
-            html_message += """<ul style="list-style-type: disc">"""
-            for job in topic.job_set.all():
-                if job.found_date == today:
+            if topic.job_set.all().filter(found_date=today).count() > 0:
+                html_message += """<ul style="list-style-type: disc">"""
+                for job in topic.job_set.all().filter(found_date=today)[:15]:#limiting to only 15 so users aren't overwhelmed
                     message += str(job) + "\n"
                     html_message += self.job_to_html(job)
-            html_message += """</ul>"""
+                html_message += """</ul>"""
+            else:
+                message += "No new " + topic.name + " jobs for today, stay tuned tomorrow!"
+                html_message += """<p>No new """ + topic.name + """ jobs for today, stay tuned tomorrow!</p>"""
         message += "\n\nAdditional jobs that may interest you: \n"
         html_message += """</br></br><h3>Additional jobs that may interest you</h3>"""
         html_message += """<ul style="list-style-type: disc">"""
-        for job in Job.objects.filter(found_date=today).filter(topics=None):
+        for job in Job.objects.filter(found_date=today).filter(topics=None)[:10]:
             message += str(job) + "\n"
             html_message += self.job_to_html(job)
         html_message += """</ul>"""
@@ -74,7 +80,7 @@ class Mailer:
               <head></head>
               <body>
                 <div style="background: #ffffff;">
-                    <h1 style="text-align: center; background: rgba(104, 208, 60,.9); color: #ffffff">Impact Careers Daily</h1>
+                    <h1 style="text-align: center; background: rgba(104, 208, 60); color: #ffffff; padding: 10px;">Impact Careers Daily</h1>
                     <p>Check out today's new jobs for you!</p>
 
             """
