@@ -61,6 +61,10 @@ h1 {
     margin-bottom: 0;
 }
 
+h2 {
+    text-align: center;
+}
+
 h3 {
     font-family: pt_sansregular;
     margin-top: 0;

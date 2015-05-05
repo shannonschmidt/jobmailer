@@ -22,4 +22,5 @@ def index(request):
     else:
         form = UserForm()
         return render_to_response('signup_app/index.html', {'form':form },
-                                  context_instance=RequestContext(request))
+                                 context_instance=RequestContext(request))
+        # return HttpResponse("test")
