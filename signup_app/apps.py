@@ -23,6 +23,8 @@ class SignupAppConfig(AppConfig):
         mailer = Mailer()
         tm = TaskManager(scraper, mailer)
 
-        #todo: fix bug where ready() may be called twice and spawns 2 threads and sends double emails
+#For this prototype, we're using a thread and scheduler to trigger the once per day scraping and emails
+#since it's the simplest solution. For the future production app, we would use something more robust like a Cron job.
+
         t = Thread(target=tm.send_mail_task)
         t.start()

@@ -8,3 +8,7 @@ class UserAdmin(admin.ModelAdmin):
     search_field =['email']
 admin.site.register(User, UserAdmin)
 admin.site.register(Topic)
+
+#db superuser -
+# username: admin
+# pw: password
